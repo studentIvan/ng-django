@@ -1,0 +1,65 @@
+{% load compress %}<!DOCTYPE html>
+<html ng-app="application">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>application title</title>
+    {% compress css %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/font_awesome/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/animate/animate.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/site/main.css">
+    {% endcompress %}
+</head>
+<body ng-controller="application.MainCtrl as mainCtrl">
+<section id="loader"><img src="{{ STATIC_URL }}img/preloader.gif" style="width: 100%"></section>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="list-group">
+                <a href="/" class="list-group-item"
+                   ng-class="{active: $routeSegment.startsWith('home')}">
+                    home
+                </a>
+                <a href="/another" class="list-group-item"
+                   ng-class="{active: $routeSegment.startsWith('another')}">
+                    another
+                </a>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <section app-view-segment="0" class="content container-fluid">
+                загрузка...
+            </section>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="modalAlert.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Всплывающее сообщение</h3>
+    </div>
+    <div class="modal-body">
+        <p>{[{ alertMessage }]}</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="alertClose()">OK</button>
+    </div>
+</script>
+{% compress js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/moment/moment-with-langs.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-animate.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-route.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/angular_modules/angular-route-segment.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/angular_ui/ui-bootstrap-tpls-0.11.0.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/angular_ui/ui-utils.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/site/application.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/site/angular_controllers/main.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/site/angular_controllers/home.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/site/angular_controllers/another.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/site/routing.js"></script>
+{% endcompress %}
+</body>
+</html>

@@ -1,0 +1,4 @@
+django>=1.6
+south
+simplejson
+django_compressor

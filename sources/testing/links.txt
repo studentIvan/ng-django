@@ -1,0 +1,3 @@
+Ссылки на документацию по тестированию
+https://github.com/angular/protractor/blob/master/docs/getting-started.md
+http://selenium.googlecode.com/git/docs/api/javascript/namespace_webdriver_By.html
