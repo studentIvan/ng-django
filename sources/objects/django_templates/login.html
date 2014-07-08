@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<form method="POST" action="">
+    {% csrf_token %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-red">{{ error }}</div>
+    {% endfor %}
+    {% for field in form %}
+        <label class="form-element form-group">
+            {{ field.label }}
+            {% for error in field.errors %}
+                <span class="alert alert-red" style="border: none; padding: 0">({{ error|slice:":-1" }})</span>
+            {% endfor %}
+            <input class="form-control" name="{{ field.html_name }}" type="{{ field.field.widget.input_type }}"
+                   placeholder="{{ field.label }}">
+        </label>
+    {% endfor %}
+    <button class="btn btn-large btn-red btn-100" type="submit">Войти</button>
+</form>
+</body>
+</html>

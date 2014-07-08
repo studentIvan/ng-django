@@ -5,6 +5,7 @@ from __future__ import print_function, unicode_literals
 #from django.db import transaction
 #from django.db.models import Sum, Q
 from django.http import HttpResponse, Http404, HttpResponseForbidden
+from django.contrib.auth.decorators import login_required
 #from django.utils import timezone
 from django.conf import settings
 #from django.shortcuts import get_object_or_404
@@ -35,6 +36,7 @@ functions = dict(
     inspect.getmembers(sys.modules[__name__], lambda f: inspect.isfunction(f) and f.__module__ == __name__))
 
 
+@login_required
 def api_handler_global(request):
     if request.method != 'POST':
         return HttpResponseForbidden('403 Forbidden')
