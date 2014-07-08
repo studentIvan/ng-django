@@ -15,12 +15,12 @@ routes = ng_parse(settings.STATIC_ROOT + '/js/site/routing.js')
 urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^api/$', 'angular_api.views.api_handler_global'),
-                       url(r'^(?:$|%s|test)' % '|'.join(routes),
-                           login_required(render),
-                           {'template_name': 'index.html'}),
                        url(r'^login/$', login,
                            {'template_name': 'login.html',
                             'authentication_form': AuthenticationForm},
                            name='login'),
                        url(r'^logout/$', logout, {'next_page': 'login'},
-                           name='logout'))
+                           name='logout'),
+                       url(r'^(?:$|%s|test)' % '|'.join(routes),
+                           login_required(render),
+                           {'template_name': 'index.html'}))

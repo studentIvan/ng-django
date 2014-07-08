@@ -2,9 +2,14 @@
 <html>
 <head>
     <title></title>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular.min.js"></script>
+    <script>
+        loginApplication = angular.module('loginApplication', [])
+    </script>
 </head>
-<body>
-<form method="POST" action="">
+<body ng-app="loginApplication">
+<form method="POST" onsubmit="this.submit()">
     {% csrf_token %}
     {% for error in form.non_field_errors %}
         <div class="alert alert-red">{{ error }}</div>
