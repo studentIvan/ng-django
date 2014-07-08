@@ -25,6 +25,18 @@
                    ng-class="{active: $routeSegment.startsWith('another')}">
                     another
                 </a>
+                <a href="/another/second_level" class="list-group-item"
+                   ng-class="{active: $routeSegment.startsWith('another.second_level')}">
+                    another/second_level
+                </a>
+                <a href="/another/second_level/third_level" class="list-group-item"
+                   ng-class="{active: $routeSegment.startsWith('another.second_level.third_level')}">
+                    another/second_level/third_level
+                </a>
+                <a href="/another/second_level/third_level/fourth_level" class="list-group-item"
+                   ng-class="{active: $routeSegment.startsWith('another.second_level.third_level.fourth_level')}">
+                    another/second_level/third_level/fourth_level
+                </a>
             </div>
         </div>
         <div class="col-md-8">

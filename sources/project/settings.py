@@ -62,7 +62,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'objects/static_files')
+STATIC_ROOT = os.path.join(BASE_DIR, 'objects/static')
 COMPRESS_ENABLED = not DEBUG
 COMPRESS_OUTPUT_DIR = 'assets'
 
