@@ -29,6 +29,9 @@ class APIException(Exception):
 #region api functions
 def get_obama_years(**kwargs):
     return datetime.date.today().year - 1961
+
+def yet_another_api_function(**kwargs):
+    return True
 #endregion
 
 
