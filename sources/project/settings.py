@@ -1,8 +1,9 @@
 import os
+import simplejson as json
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'v)-8q_3giew*pdy*&e@&knte6mz&1=$9$29+2h_k8s2*#aftx$'
 DEBUG = True
-TURN_OFF_SECURITY = True
+TURN_OFF_SECURITY = False
 TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
@@ -80,3 +81,5 @@ LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/'
 
+PUSHER_KEY = 'cc703ed363f8be1f0168'
+PUSHER_SECRET = '4dec57c6349a8946199a'

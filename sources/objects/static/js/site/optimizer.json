@@ -1,8 +1,0 @@
-[
-    {
-        "controller": "application.HomeCtrl",
-        "frames": [
-            ["get_obama_years", "yet_another_api_function"]
-        ]
-    }
-]

@@ -8,6 +8,6 @@ body {
     top: 0;
     left: 0;
     z-index: 10000;
-    background-color: black;
     opacity: 0.8;
+    font-size: 26px;
 }

@@ -6,10 +6,50 @@
 application = angular.module('application',
     ['ngAnimate', 'ngRoute', 'route-segment', 'view-segment', 'ui.bootstrap']);
 
+/**
+ * Use alternative braces for angular application because the Django has a same braces
+ */
 application.config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{');
     $interpolateProvider.endSymbol('}]}');
 });
+
+/**
+ * @see https://app.pusher.com
+ * @type {{use: use}}
+ */
+application.pusher = {
+    /**
+     * Go pusher within global API
+     */
+    use: function() {
+        /**
+         * Trying to connect to the pusher
+         */
+        try {
+            /**
+             * @type {string}
+             */
+            PUSHER_KEY;
+
+            /**
+             * @type {Pusher}
+             */
+            application.pusher = PUSHER_KEY ? new Pusher(PUSHER_KEY) : false;
+            application.pusher.use = function() {}
+        }
+        catch (e) {
+            /**
+             * @type {Pusher}
+             */
+            application.pusher = false;
+        }
+
+        if (!application.pusher) {
+            throw 'The Pusher does not connected'
+        }
+    }
+};
 
 /**
  * localStorage helper
@@ -100,16 +140,17 @@ application.moment.lang('ru');
 
 /**
  * Server API Helper
- * @type {{errorCallback: Function, successCallback: Function, post: Function}}
+ * @type {{errorCallback: errorCallback, successCallback: successCallback, post: post}}
  * @export
  */
 application.server = {
     /**
      * Default error callback
      * @param {object} response
+     * @param {number} status
      */
-    errorCallback: function(response) {
-        console.error(response)
+    errorCallback: function(response, status) {
+        console.error(status, response)
     },
 
     /**
@@ -142,7 +183,17 @@ application.server = {
             throw 'application.httpRequest is not defined'
         }
 
-        if (typeof kwargs == 'function' && !successCallback) {
+        /**
+         * Different kinds of call:
+         * post('example', kwargs, success, error)
+         * post('example', success, error)
+         * post('example', success)
+         */
+        if (typeof kwargs == 'function' && typeof successCallback == 'function' && !errorCallback) {
+            errorCallback = successCallback;
+            successCallback = kwargs;
+            kwargs = {};
+        } else if (typeof kwargs == 'function' && !successCallback) {
             successCallback = kwargs;
             kwargs = {};
         }
@@ -152,6 +203,9 @@ application.server = {
         kwargs = kwargs || {};
         kwargs['function'] = method;
 
+        /**
+         * @see https://docs.angularjs.org/api/ng/service/$http
+         */
         var request = $http({
             method: 'POST',
             url: '/api/',

@@ -4,40 +4,51 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>application title</title>
+    <base href="/">
     {% compress css %}
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/font_awesome/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/animate/animate.css">
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/site/main.css">
     {% endcompress %}
+    <script type="text/javascript">
+        PUSHER_KEY = '{{ pusher_key }}';
+    </script>
 </head>
 <body ng-controller="application.MainCtrl as mainCtrl">
-<section id="loader"><img src="{{ STATIC_URL }}img/preloader.gif" style="width: 100%"></section>
+<section id="loader">
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped active" role="progressbar"
+           aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+        <span class="sr-only"></span>
+      </div>
+    </div>
+</section>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
             <div class="list-group">
-                <a href="/" class="list-group-item"
+                <a href="{[{'home' | routeSegmentUrl}]}" class="list-group-item"
                    ng-class="{active: $routeSegment.startsWith('home')}">
                     home
                 </a>
-                <a href="/another" class="list-group-item"
+                <a href="{[{'another' | routeSegmentUrl}]}" class="list-group-item"
                    ng-class="{active: $routeSegment.startsWith('another')}">
                     another
                 </a>
-                <a href="/another/second_level" class="list-group-item"
+                <a href="{[{'another.second_level' | routeSegmentUrl}]}" class="list-group-item"
                    ng-class="{active: $routeSegment.startsWith('another.second_level')}">
                     another/second_level
                 </a>
-                <a href="/another/second_level/third_level" class="list-group-item"
+                <a href="{[{'another.second_level.third_level' | routeSegmentUrl}]}" class="list-group-item"
                    ng-class="{active: $routeSegment.startsWith('another.second_level.third_level')}">
                     another/second_level/third_level
                 </a>
-                <a href="/another/second_level/third_level/fourth_level" class="list-group-item"
+                <a href="{[{'another.second_level.third_level.fourth_level' | routeSegmentUrl}]}" class="list-group-item"
                    ng-class="{active: $routeSegment.startsWith('another.second_level.third_level.fourth_level')}">
                     another/second_level/third_level/fourth_level
                 </a>
-                <a href="{% url 'logout' %}" target="_self" class="list-group-item">
+                <a href="{% url 'logout' csrf_token %}" target="_self" class="list-group-item">
                     выход
                 </a>
             </div>
@@ -67,6 +78,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-animate.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular-route.min.js"></script>
+    <!--<script type="text/javascript" src="{{ STATIC_URL }}js/pusher/pusher.min.js"></script>-->
     <script type="text/javascript" src="{{ STATIC_URL }}js/angular_modules/angular-route-segment.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/angular_ui/ui-bootstrap-tpls-0.11.0.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/angular_ui/ui-utils.min.js"></script>
