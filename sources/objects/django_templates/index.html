@@ -12,6 +12,11 @@
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/site/main.css">
     {% endcompress %}
     <script type="text/javascript">
+        /**
+         * @const
+         * @type {string}
+         * @export
+         */
         PUSHER_KEY = '{{ pusher_key }}';
     </script>
 </head>
@@ -83,6 +88,7 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/angular_ui/ui-bootstrap-tpls-0.11.0.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/angular_ui/ui-utils.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/site/application.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/site/filters.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/site/angular_controllers/main.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/site/angular_controllers/home.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/site/angular_controllers/another.js"></script>

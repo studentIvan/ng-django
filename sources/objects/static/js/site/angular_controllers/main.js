@@ -68,27 +68,6 @@ application.MainCtrl.prototype.showAlert = function (message) {
 };
 
 /**
- * Beautify datetime, make it localized
- * @param {string} datetime
- * @returns {string}
- */
-application.MainCtrl.prototype.getRelativeDateTime = function (datetime) {
-    return application.moment(datetime).fromNow();
-};
-
-/**
- * Display datetime in special format
- * D MMMM YYYY, dddd, HH:mm:ss
- * @param {string} datetime
- * @returns {string}
- */
-application.MainCtrl.prototype.getAbsoluteDateTime = function (datetime) {
-    return application.moment(datetime).format('D MMMM YYYY, dddd, HH:mm:ss');
-};
-
-/**
  * Make some functions as global
  */
 application.showAlert = application.MainCtrl.prototype.showAlert;
-application.getRelativeDateTime = application.MainCtrl.prototype.getRelativeDateTime;
-application.getAbsoluteDateTime = application.MainCtrl.prototype.getAbsoluteDateTime;
