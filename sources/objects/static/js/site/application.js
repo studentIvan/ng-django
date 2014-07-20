@@ -244,3 +244,13 @@ application.server = {
  * @export
  */
 application.$scope = {};
+
+/**
+ * Import apiCall method
+ * @param instance
+ */
+application.importServerApiShortcuts = function(instance) {
+    instance.apiCall = application.server.post;
+    instance.successCallback = application.server.successCallback;
+    instance.errorCallback = application.server.errorCallback;
+};
