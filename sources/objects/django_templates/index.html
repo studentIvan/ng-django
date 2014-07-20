@@ -53,6 +53,10 @@
                    ng-class="{active: $routeSegment.startsWith('another.second_level.third_level.fourth_level')}">
                     another/second_level/third_level/fourth_level
                 </a>
+                <a href="" class="list-group-item"
+                   onclick="application.server.post('yet_another_api_function')">
+                    yet_another_api_function (404 test)
+                </a>
                 <a href="{% url 'logout' csrf_token %}" target="_self" class="list-group-item">
                     выход
                 </a>
