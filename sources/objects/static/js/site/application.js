@@ -247,10 +247,10 @@ application.$scope = {};
 
 /**
  * Import apiCall method
- * @param instance
+ * @param ctrl
  */
-application.importServerApiShortcuts = function(instance) {
-    instance.apiCall = application.server.post;
-    instance.successCallback = application.server.successCallback;
-    instance.errorCallback = application.server.errorCallback;
+application.apiClient = function(ctrl) {
+    ctrl.apiCall = application.server.post;
+    ctrl.successCallback = application.server.successCallback;
+    ctrl.errorCallback = application.server.errorCallback;
 };

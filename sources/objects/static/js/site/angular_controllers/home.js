@@ -12,7 +12,7 @@ application.HomeCtrl = function () {
      */
     this.myColor = 'red';
 
-    application.importServerApiShortcuts(this);
+    application.apiClient(this);
 
     if (application.$scope.testVar == 9000) {
         //application.showAlert('Angular.js');
