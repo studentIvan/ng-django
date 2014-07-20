@@ -26,9 +26,11 @@ import sys
 def get_obama_years(**kwargs):
     return datetime.date.today().year - 1961
 
+
 def yet_another_api_function(**kwargs):
-    raise APIException.notFound('test 404')
+    raise APIException.not_found()
     #return True
+
 #endregion
 
 

@@ -149,8 +149,24 @@ application.server = {
      * @param {object} response
      * @param {number} status
      */
-    errorCallback: function(response, status) {
-        console.error(status, response)
+    errorCallback: function (response, status) {
+        if (application.showAlert) {
+            var errors = {
+                400: ['Bad Request', 'Во время выполнения запроса возникла ошибка, ' +
+                    'проверьте данные ещё раз и исправьте при необходимости.'],
+                403: ['Forbidden', 'Данное действие для вас запрещено.'],
+                404: ['Not Found', 'Не удалось найти запрашиваемый элемент.'],
+                409: ['Conflict', 'Во время выполнения запроса возникла ошибка конфликта данных.'],
+                412: ['Precondition Failed', 'Неверный запрос, измените его и попробуйте снова.'],
+                423: ['Locked', 'Ресурс из запроса заблокирован от применения к нему указанного метода.'],
+                429: ['Too Many Requests', 'Очень много запросов, попробуйте позже.'],
+                449: ['Retry With', 'Поступило недостаточно информации.']
+            };
+            application.showAlert('Ошибка', (errors[status][0] == response.error ?
+                errors[status][1] : response.error))
+        } else {
+            console.error(response, status)
+        }
     },
 
     /**
