@@ -3,3 +3,5 @@ south
 simplejson
 django_compressor
 pusher
+redis
+django-constance

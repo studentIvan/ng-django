@@ -7,9 +7,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login, logout
 from django.core.context_processors import csrf
 from django.http import HttpResponseForbidden
-from django.shortcuts import render
-
 from objects.forms import AuthenticationForm
+from django.shortcuts import render
+from constance import config
 
 admin.autodiscover()
 routes = ng_parse(settings.STATIC_ROOT + '/js/site/routing.js')
@@ -36,6 +36,6 @@ urlpatterns = patterns('',
                            {
                                'template_name': 'index.html',
                                'dictionary': {
-                                   'pusher_key': settings.PUSHER_KEY
+                                   'config': config
                                }
                            }))

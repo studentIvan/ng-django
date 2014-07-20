@@ -1,5 +1,9 @@
+# -*- coding: utf-8 -*-
 import os
 import simplejson as json
+
+PROJECT_UNIQUE_NAME = 'project1'
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'v)-8q_3giew*pdy*&e@&knte6mz&1=$9$29+2h_k8s2*#aftx$'
 DEBUG = True
@@ -17,7 +21,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'objects',
     'south',
-    'compressor'
+    'compressor',
+    'constance',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -81,5 +86,27 @@ LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/'
 
-PUSHER_KEY = 'cc703ed363f8be1f0168'
-PUSHER_SECRET = '4dec57c6349a8946199a'
+CONSTANCE_BACKEND = 'constance.backends.redisd.RedisBackend'
+CONSTANCE_REDIS_PREFIX = 'constance:%s:' % PROJECT_UNIQUE_NAME
+
+if 'REDIS_SETTINGS' in os.environ:
+    cred = json.loads(os.environ['REDIS_SETTINGS'])
+    CONSTANCE_REDIS_CONNECTION = {
+        'host': cred['redis_host'],
+        'port': cred['redis_port'],
+        'db': cred['redis_db'],
+    }
+else:
+    CONSTANCE_REDIS_CONNECTION = {
+        'host': 'localhost',
+        'port': 6379,
+        'db': 0,
+    }
+
+CONSTANCE_CONFIG = {
+    'PUSHER_KEY': ('cc703ed363f8be1f0168', 'Pusher application key'),
+    'PUSHER_SECRET': ('4dec57c6349a8946199a', 'Pusher application secret'),
+    'AUTH_ATTEMPTS_PER_MINUTE': (5, u'Количество ошибочных авторизаций в минуту'),
+}
+
+CONSTANCE_SUPERUSER_ONLY = False
