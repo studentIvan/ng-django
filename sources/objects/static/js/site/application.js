@@ -9,9 +9,10 @@ application = angular.module('application',
 /**
  * Use alternative braces for angular application because the Django has a same braces
  */
-application.config(function ($interpolateProvider) {
+application.config(function ($interpolateProvider, $controllerProvider) {
     $interpolateProvider.startSymbol('{[{');
     $interpolateProvider.endSymbol('}]}');
+    $controllerProvider.allowGlobals();
 });
 
 /**
@@ -150,6 +151,9 @@ application.server = {
      * @param {number} status
      */
     errorCallback: function (response, status) {
+        response = response || {
+            error: 'Server Error'
+        };
         if (application.showAlert) {
             var errors = {
                 400: ['Bad Request', 'Во время выполнения запроса возникла ошибка, ' +
@@ -246,8 +250,16 @@ application.server = {
 application.$scope = {};
 
 /**
+ * Injector
+ * @type {*|function()}
+ * @export
+ */
+application.injector = angular.injector(['application']);
+
+/**
  * Import apiCall method
  * @param ctrl
+ * @export
  */
 application.apiClient = function(ctrl) {
     ctrl.apiCall = application.server.post;

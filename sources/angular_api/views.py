@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from angular_api.logic import *
+import angular_api.jasmine as jasmine
 import simplejson as json
 import traceback
 import datetime
@@ -21,6 +22,7 @@ def get_obama_years(**kwargs):
 def yet_another_api_function(**kwargs):
     return get_object_or_404(User, id=200)  # error 404 test
 
+
 #endregion
 
 
@@ -30,6 +32,9 @@ functions = dict(
         lambda f: inspect.isfunction(f) and f.__module__ == __name__
     )
 )
+
+functions['jasmine_tests_run_before'] = jasmine.jasmine_tests_run_before
+functions['jasmine_tests_run_after'] = jasmine.jasmine_tests_run_after
 
 
 @login_required
