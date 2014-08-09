@@ -141,7 +141,7 @@ application.moment.lang('ru');
 
 /**
  * Server API Helper
- * @type {{errorCallback: errorCallback, successCallback: successCallback, post: post}}
+ * @type {{errorCallback: errorCallback, successCallback: successCallback}}
  * @export
  */
 application.server = {
@@ -179,90 +179,63 @@ application.server = {
      */
     successCallback: function(response) {
         console.info(response)
-    },
-
-    /**
-     * POST Api Request
-     * Special for Django
-     * You can pass successCallback only instead kwargs
-     *
-     * @param {string} method
-     * @param {object|function} kwargs
-     * @param {function} successCallback
-     * @param {function} errorCallback
-     * @export
-     */
-    post: function(method, kwargs, successCallback, errorCallback) {
-        var $http = application.httpRequest;
-
-        if (!method) {
-            throw 'You want to select a method'
-        }
-
-        if (!$http) {
-            throw 'application.httpRequest is not defined'
-        }
-
-        /**
-         * Different kinds of call:
-         * post('example', kwargs, success, error)
-         * post('example', success, error)
-         * post('example', success)
-         */
-        if (typeof kwargs == 'function' && typeof successCallback == 'function' && !errorCallback) {
-            errorCallback = successCallback;
-            successCallback = kwargs;
-            kwargs = {};
-        } else if (typeof kwargs == 'function' && !successCallback) {
-            successCallback = kwargs;
-            kwargs = {};
-        }
-
-        successCallback = successCallback || this.successCallback;
-        errorCallback = errorCallback || this.errorCallback;
-        kwargs = kwargs || {};
-        kwargs['function'] = method;
-
-        /**
-         * @see https://docs.angularjs.org/api/ng/service/$http
-         */
-        var request = $http({
-            method: 'POST',
-            url: '/api/',
-            data: kwargs,
-            cache: false,
-            timeout: 10e3,
-            responseType: 'json',
-            xsrfHeaderName: 'X-CSRFToken',
-            xsrfCookieName: 'csrftoken'
-        });
-
-        request.success(successCallback);
-        request.error(errorCallback);
     }
 };
 
-/**
- * Global registry
- * @type {object}
- * @export
- */
-application.$scope = {};
+application.factory('$api', ['$http', function (httpRequest) {
+    return {
+        /**
+         * POST Api Request
+         * Special for Django
+         * You can pass successCallback only instead kwargs
+         *
+         * @param {string} method
+         * @param {object|function} kwargs
+         * @param {function} successCallback
+         * @param {function} errorCallback
+         * @export
+         */
+        call: function (method, kwargs, successCallback, errorCallback) {
+            if (!method) {
+                throw 'You want to select a method'
+            }
 
-/**
- * Injector
- * @type {*|function()}
- * @export
- */
-application.injector = angular.injector(['application']);
+            /**
+             * Different kinds of call:
+             * post('example', kwargs, success, error)
+             * post('example', success, error)
+             * post('example', success)
+             */
+            if (typeof kwargs == 'function' && typeof successCallback == 'function' && !errorCallback) {
+                errorCallback = successCallback;
+                successCallback = kwargs;
+                kwargs = {};
+            } else if (typeof kwargs == 'function' && !successCallback) {
+                successCallback = kwargs;
+                kwargs = {};
+            }
 
-/**
- * Import apiCall method
- * @param ctrl
- * @export
- */
-application.apiClient = function(ctrl) {
-    ctrl.apiCall = application.server.post;
-    ctrl.successCallback = application.server.successCallback;
-    ctrl.errorCallback = application.server.errorCallback;
-};
+            successCallback = successCallback || application.server.successCallback;
+            errorCallback = errorCallback || application.server.errorCallback;
+            kwargs = kwargs || {};
+            kwargs['function'] = method;
+
+            /**
+             * @see https://docs.angularjs.org/api/ng/service/$http
+             */
+            var request = httpRequest({
+                method: 'POST',
+                url: '/api/',
+                data: kwargs,
+                cache: false,
+                timeout: 10e3,
+                responseType: 'json',
+                xsrfHeaderName: 'X-CSRFToken',
+                xsrfCookieName: 'csrftoken'
+            });
+
+            request.success(successCallback);
+            request.error(errorCallback);
+        }
+    }
+}]);

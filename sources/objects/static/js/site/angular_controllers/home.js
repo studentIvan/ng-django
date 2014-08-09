@@ -5,18 +5,13 @@
  * @ngInject
  * @export
  */
-application.HomeCtrl = function () {
+application.HomeCtrl = function ($api) {
     /**
      * @type {string}
      * @export
      */
     this.myColor = 'red';
-
-    application.apiClient(this);
-
-    if (application.$scope.testVar == 9000) {
-        //application.showAlert('Angular.js');
-    }
+    this.api = $api;
 };
 
 
@@ -34,7 +29,7 @@ application.HomeCtrl.prototype.add = function (a, b) {
  */
 application.HomeCtrl.prototype.getObamaYears = function () {
     var homeCtrl = this;
-    this.apiCall('get_obama_years', function(response) {
+    this.api.call('get_obama_years', function(response) {
         homeCtrl.obamaYears = response.result;
     });
 };

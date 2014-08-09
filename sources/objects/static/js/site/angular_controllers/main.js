@@ -5,7 +5,7 @@
  * @ngInject
  * @export
  */
-application.MainCtrl = function($scope, $modal, $log, $http, $routeSegment, $location, loader) {
+application.MainCtrl = function($scope, $modal, $routeSegment, $location, loader) {
     /**
      * Hide pre loader
      */
@@ -15,19 +15,10 @@ application.MainCtrl = function($scope, $modal, $log, $http, $routeSegment, $loc
     $scope.loader = loader;
 
     /**
-     * Example global configuration
-     * @type {number}
-     */
-    application.$scope.testVar = 9000;
-
-    /** @type {!angular.$http} */
-    application.httpRequest = $http;
-
-    /**
      * Modal component
      * @typedef {object}
      */
-    application.$scope.$modal = $modal;
+    application.modalService = $modal;
 
     $scope.$on('routeSegmentChange', function () {
         loader.show = false;
@@ -63,7 +54,7 @@ application.MainCtrl.prototype.showAlert = function (title, message) {
         message = title;
         title = 'Всплывающее сообщение';
     }
-    application.$scope.$modal.open({
+    application.modalService.open({
         templateUrl: 'modalAlert.html',
         controller: application.MainCtrl.prototype.ModalAlertInstanceCtrl,
         resolve: {
