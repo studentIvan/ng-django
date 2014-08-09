@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function, unicode_literals
+from __future__ import print_function, unicode_literals, division
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from angular_api.logic import *
-import angular_api.jasmine as jasmine
+#import angular_api.jasmine as jasmine
 import simplejson as json
 import traceback
 import datetime
@@ -33,8 +33,8 @@ functions = dict(
     )
 )
 
-functions['jasmine_tests_run_before'] = jasmine.jasmine_tests_run_before
-functions['jasmine_tests_run_after'] = jasmine.jasmine_tests_run_after
+#functions['jasmine_tests_run_before'] = jasmine.jasmine_tests_run_before
+#functions['jasmine_tests_run_after'] = jasmine.jasmine_tests_run_after
 
 
 @login_required
