@@ -68,31 +68,29 @@ describe('application example test', function () {
          */
         bot.findElement(by.linkText('another')).click();
         bot.findElement(by.linkText('another/second_level')).click();
-        bot.findElement(by.linkText('another/second_level/third_level')).click();
-        bot.findElement(by.linkText('another/second_level/third_level/fourth_level')).click();
         bot.findElement(by.linkText('another')).click();
     });
 
-    it('obama wants to be 53 years old', function () {
+    //it('obama wants to be 53 years old', function () {
         /**
          * Идем на главную
          */
-        bot.findElement(by.linkText('home')).click();
+        //bot.findElement(by.linkText('home')).click();
 
         /**
          * Ищем ссылочку сколько лет обаме
          */
-        bot.findElement(by.id('how')).then(function (foundElement) {
+        /*bot.findElement(by.id('how')).then(function (foundElement) {
             foundElement.click();
-        });
+        });*/
 
         /**
          * Смотрим результат
          */
-        bot.findElement(by.id('how_result')).then(function (foundElement) {
+        /*bot.findElement(by.id('how_result')).then(function (foundElement) {
             expect(foundElement.getText()).toEqual('Obama has: 53 years');
-        });
-    });
+        });*/
+    //});
 
     /**
      * Если были ошибки в логах браузера - скидываем их в логи

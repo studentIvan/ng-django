@@ -20,7 +20,7 @@
         PUSHER_KEY = '{{ config.PUSHER_KEY }}';
     </script>
 </head>
-<body ng-controller="application.MainCtrl as mainCtrl">
+<body ng-controller="application.MainCtrl as main">
 <section id="loader">
     <div class="progress">
       <div class="progress-bar progress-bar-striped active" role="progressbar"
@@ -44,14 +44,6 @@
                 <a href="{[{'another.second_level' | routeSegmentUrl}]}" class="list-group-item"
                    ng-class="{active: $routeSegment.startsWith('another.second_level')}">
                     another/second_level
-                </a>
-                <a href="{[{'another.second_level.third_level' | routeSegmentUrl}]}" class="list-group-item"
-                   ng-class="{active: $routeSegment.startsWith('another.second_level.third_level')}">
-                    another/second_level/third_level
-                </a>
-                <a href="{[{'another.second_level.third_level.fourth_level' | routeSegmentUrl}]}" class="list-group-item"
-                   ng-class="{active: $routeSegment.startsWith('another.second_level.third_level.fourth_level')}">
-                    another/second_level/third_level/fourth_level
                 </a>
                 <a href="{% url 'logout' csrf_token %}" target="_self" class="list-group-item">
                     выход

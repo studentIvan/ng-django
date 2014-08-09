@@ -13,8 +13,6 @@ application.config(function ($routeSegmentProvider, $routeProvider, $locationPro
         .when('/', 'home')
         .when('/another/', 'another')
         .when('/another/second_level/', 'another.second_level')
-        .when('/another/second_level/third_level/', 'another.second_level.third_level')
-        .when('/another/second_level/third_level/fourth_level/', 'another.second_level.third_level.fourth_level')
 
         .segment('home', {
             templateUrl: '/static/angular_templates/home.html',
@@ -30,23 +28,8 @@ application.config(function ($routeSegmentProvider, $routeProvider, $locationPro
 
             .segment('second_level', {
                 templateUrl: '/static/angular_templates/another_second_level.html',
-                controller: this.AnotherCtrlSecondLevel
+                controller: this.SecondCtrl
             })
-
-            .within()
-
-                .segment('third_level', {
-                    templateUrl: '/static/angular_templates/another_third_level.html',
-                    controller: this.AnotherCtrlThirdLevel
-                })
-
-                .within()
-
-                    .segment('fourth_level', {
-                        templateUrl: '/static/angular_templates/another_fourth_level.html',
-                        controller: this.AnotherCtrlFourthLevel
-                    })
-
     ;
 
 

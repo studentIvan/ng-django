@@ -1,5 +1,3 @@
-var myColorGlobal = 'navy';
-
 /**
  * Another controller.
  *
@@ -7,39 +5,10 @@ var myColorGlobal = 'navy';
  * @ngInject
  * @export
  */
-application.AnotherCtrl = function() {
-  /**
-   * @type {string}
-   * @export
-   */
-  this.myColor = 'red';
-};
+application.controller('AnotherCtrl', [function() {
+    this.myColor = 'yellow';
+}]);
 
-/**
- * @constructor
- * @ngInject
- * @export
- */
-application.AnotherCtrlSecondLevel = function() {
-    this.myColor = 'blue';
-};
-
-
-/**
- * @constructor
- * @ngInject
- * @export
- */
-application.AnotherCtrlThirdLevel = function() {
-
-};
-
-
-/**
- * @constructor
- * @ngInject
- * @export
- */
-application.AnotherCtrlFourthLevel = function() {
-    this.myColor = myColorGlobal;
-};
+application.controller('SecondCtrl', [function() {
+    this.myColor = 'green';
+}]);
