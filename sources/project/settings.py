@@ -86,6 +86,7 @@ LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/'
 
+#region REDIS
 CONSTANCE_BACKEND = 'constance.backends.redisd.RedisBackend'
 CONSTANCE_REDIS_PREFIX = 'constance:%s:' % PROJECT_UNIQUE_NAME
 
@@ -110,3 +111,4 @@ CONSTANCE_CONFIG = {
 }
 
 CONSTANCE_SUPERUSER_ONLY = False
+#endregion

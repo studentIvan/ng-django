@@ -9,7 +9,9 @@ from django.core.context_processors import csrf
 from django.http import HttpResponseForbidden
 from objects.forms import AuthenticationForm
 from django.shortcuts import render
+#region REDIS
 from constance import config
+#endregion
 
 admin.autodiscover()
 routes = ng_parse(settings.STATIC_ROOT + '/js/site/routing.js')
@@ -29,7 +31,7 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^api/$', 'angular_api.views.api_handler_global'),
                        url(r'^login/$', login, {'template_name': 'login.html',
-                            'authentication_form': AuthenticationForm}, name='login'),
+                                                'authentication_form': AuthenticationForm}, name='login'),
                        url(r'^logout/(?P<csrf_token>\w+)/$', logout_protected, {'next_page': 'login'},
                            name='logout'),
                        url(r'^(?:$|%s)' % '|'.join(routes), login_required(render),

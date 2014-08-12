@@ -1,6 +1,6 @@
 #coding=utf-8
 from django.shortcuts import _get_queryset
-#from mongoengine.base import ValidationError
+#from mongoengine.base import ValidationError (MongoDB)
 
 
 class APIException(Exception):
@@ -101,6 +101,7 @@ def get_object_or_404(interesting, *args, **kwargs):
     object is found.
     """
     queryset = _get_queryset(interesting)
+    #queryset = interesting.objects (MongoDB)
     try:
         return queryset.get(*args, **kwargs)
     except queryset.model.DoesNotExist:

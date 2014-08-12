@@ -3,10 +3,11 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm as DjAuthForm
 from django.utils.translation import ugettext_lazy as _
-from constance import config
 from django.conf import settings
+#region REDIS
+from constance import config
 import redis
-
+#endregion
 
 class AuthenticationForm(DjAuthForm):
     username = forms.CharField(max_length=254, label='Логин')
@@ -18,10 +19,12 @@ class AuthenticationForm(DjAuthForm):
 
     @staticmethod
     def get_login_attempts(username):
+        #region REDIS
         r = redis.StrictRedis(**settings.CONSTANCE_REDIS_CONNECTION)
         attempt_key = '_auth_attempts:%s' % username
         attempts = int(r.get(attempt_key) or 0) + 1
         r.set(attempt_key, attempts, 60)
+        #endregion
         return attempts
 
     def clean(self):
