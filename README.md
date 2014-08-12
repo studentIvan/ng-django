@@ -1,4 +1,4 @@
 NG-Django
 ======
 
-[![License](https://pypip.in/license/django-cms/badge.svg)](https://github.com/studentIvan/ng-django)
+[![License](https://pypip.in/license/blackhole/badge.svg?style=flat)](https://github.com/studentIvan/ng-django)
