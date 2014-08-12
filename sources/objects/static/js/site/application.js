@@ -136,6 +136,7 @@ application.directive('focusMe', function ($timeout) {
  * @type {*}
  * @export
  */
+moment;
 application.moment = moment;
 application.moment.lang('ru');
 
@@ -182,6 +183,26 @@ application.server = {
     }
 };
 
+/**
+ * Moment.js factory
+ * @module
+ */
+application.factory('$moment', [function () {
+    return application.moment
+}]);
+
+/**
+ * Common modal factory
+ * @module
+ */
+application.factory('$modal2', [function () {
+    return application.modalService
+}]);
+
+/**
+ * API factory
+ * @module
+ */
 application.factory('$api', ['$http', function (httpRequest) {
     return {
         /**
