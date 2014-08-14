@@ -93,87 +93,6 @@ application.localStorage = {
 };
 
 /**
- * ng-enter support
- */
-application.directive('ngEnter', function () {
-    return function (scope, element, attrs) {
-        element.bind("keydown keypress", function (event) {
-            if (event.which === 13) {
-                scope.$apply(function () {
-                    scope.$eval(attrs.ngEnter, {'event': event});
-                });
-
-                event.preventDefault();
-            }
-        });
-    };
-});
-
-/**
- * focus support
- */
-application.directive('focusMe', function ($timeout) {
-    return {
-        scope: { trigger: '@focusMe' },
-        /**
-         *
-         * @param scope
-         * @param element
-         */
-        link: function (scope, element) {
-            scope.$watch('trigger', function (value) {
-                if (value === "true") {
-                    $timeout(function () {
-                        element[0].focus();
-                    });
-                }
-            });
-        }
-    };
-});
-
-/**
- * Input daemon
- */
-application.directive('ngDelay', ['$timeout', function ($timeout) {
-    return {
-        restrict: 'A',
-        scope: true,
-        /**
-         * @param element
-         * @param attributes
-         * @returns {undefined | {post: post}}
-         */
-        compile: function (element, attributes) {
-            var expression = attributes['ngChange'];
-            if (!expression)
-                return;
-
-            var ngModel = attributes['ngModel'];
-            if (ngModel) attributes['ngModel'] = '$parent.' + ngModel;
-            attributes['ngChange'] = '$$delay.execute()';
-
-            return {
-                post: function (scope, element, attributes) {
-                    scope.$$delay = {
-                        expression: expression,
-                        delay: scope.$eval(attributes['ngDelay']),
-                        execute: function () {
-                            var state = scope.$$delay;
-                            state.then = Date.now();
-                            $timeout(function () {
-                                if (Date.now() - state.then >= state.delay)
-                                    scope.$parent.$eval(expression);
-                            }, state.delay);
-                        }
-                    };
-                }
-            }
-        }
-    };
-}]);
-
-/**
  * Moment.js
  * @type {*}
  * @export
@@ -207,7 +126,8 @@ application.server = {
                 412: ['Precondition Failed', 'Неверный запрос, измените его и попробуйте снова.'],
                 423: ['Locked', 'Ресурс из запроса заблокирован от применения к нему указанного метода.'],
                 429: ['Too Many Requests', 'Очень много запросов, попробуйте позже.'],
-                449: ['Retry With', 'Поступило недостаточно информации.']
+                449: ['Retry With', 'Поступило недостаточно информации.'],
+                500: ['Server Error', 'Ошибка сервера.']
             };
             application.showAlert('Ошибка', (errors[status][0] == response.error ?
                 errors[status][1] : response.error))

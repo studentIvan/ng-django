@@ -1,0 +1,13 @@
+js/moment/moment-with-langs.min.js
+js/jquery/jquery-2.1.1.min.js
+js/bootstrap/bootstrap.min.js
+js/angular/angular.min.js
+js/angular/angular-animate.min.js
+js/angular/angular-route.min.js
+js/angular_modules/angular-route-segment.min.js
+js/angular_ui/*
+js/site/application.js
+js/site/directives.js
+js/site/filters.js
+js/site/angular_controllers/*
+js/site/routing.js

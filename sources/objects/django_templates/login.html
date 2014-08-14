@@ -1,30 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <meta charset="utf-8">
+    <title>Авторизация</title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap/bootstrap.css">
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/angular/angular.min.js"></script>
     <script>
         loginApplication = angular.module('loginApplication', [])
     </script>
+    <style type="text/css">
+        body {
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #eee;
+        }
+
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+
+        .form-signin .form-control {
+            position: relative;
+            height: auto;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+
+        .form-signin input[type="text"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+    </style>
 </head>
 <body ng-app="loginApplication">
-<form method="POST" onsubmit="this.submit()">
-    {% csrf_token %}
-    {% for error in form.non_field_errors %}
-        <div class="alert alert-red">{{ error }}</div>
-    {% endfor %}
-    {% for field in form %}
-        <label class="form-element form-group">
-            {{ field.label }}
-            {% for error in field.errors %}
-                <span class="alert alert-red" style="border: none; padding: 0">({{ error|slice:":-1" }})</span>
-            {% endfor %}
-            <input class="form-control" name="{{ field.html_name }}" type="{{ field.field.widget.input_type }}"
+<div class="container">
+
+    <form class="form-signin" role="form" method="POST" onsubmit="this.submit()">
+        <h2 class="form-signin-heading">Авторизация</h2>
+
+        {% csrf_token %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <strong>Ошибка!</strong> {{ error }}.
+            </div>
+        {% endfor %}
+        {% for field in form %}
+            <input class="form-control{% if field.errors %} alert-danger{% endif %}" name="{{ field.html_name }}" type="{{ field.field.widget.input_type }}"
                    placeholder="{{ field.label }}">
-        </label>
-    {% endfor %}
-    <button class="btn btn-large btn-red btn-100" type="submit">Войти</button>
-</form>
+        {% endfor %}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+    </form>
+
+</div>
 </body>
 </html>
