@@ -23,7 +23,7 @@ application.pusher = {
     /**
      * Go pusher within global API
      */
-    use: function() {
+    use: function () {
         /**
          * Trying to connect to the pusher
          */
@@ -37,7 +37,8 @@ application.pusher = {
              * @type {Pusher}
              */
             application.pusher = PUSHER_KEY ? new Pusher(PUSHER_KEY) : false;
-            application.pusher.use = function() {}
+            application.pusher.use = function () {
+            }
         }
         catch (e) {
             /**
@@ -219,7 +220,7 @@ application.server = {
      * Default success callback
      * @param {object} response
      */
-    successCallback: function(response) {
+    successCallback: function (response) {
         console.info(response)
     }
 };
