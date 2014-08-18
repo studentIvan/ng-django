@@ -1,0 +1,1 @@
+perl cjs.pl sources/objects/static/js_index sources/objects/static/assets/js/1.js
