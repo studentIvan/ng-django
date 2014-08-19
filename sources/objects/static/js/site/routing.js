@@ -14,6 +14,10 @@ application.config(function ($routeSegmentProvider, $routeProvider, $locationPro
         .when('/another/', 'another')
         .when('/another/second_level/', 'another.second_level')
         .when('/test/', 'test')
+        .when('/huypizda/', 'huypizda')
+        .when('/test/', 'test')
+
+
 
 
         .segment('home', {

@@ -103,19 +103,15 @@ gulp.task('create', function () {
             templateIt(angularControllerTemplate, $$$controllerF, $$$controller, $$$route))
             .pipe(gulp.dest('./'));
 
-        var $$$routingWhen = templateIt(routingWhenTemplate, $$$controllerF, $$$controller, $$$route);
-        var $$$routingSegment = templateIt(routingSegmentTemplate, $$$controllerF, $$$controller, $$$route);
-
         fs.readFile($$$routingLocation, 'utf8', function (err, data) {
-            if (err) {
-                console.log(err);
-            } else {
-                data = data.replace(/(\.when.+\))((\s+)\.segment)/, '$1<<<>>>$2');
-                data = data.replace(/(\.up\(\))(\s+;)/, '$1_______________________________\n        $1$2');
-                data = data.replace('<<<>>>', $$$routingWhen)
-                    .replace('_______________________________', $$$routingSegment);
-                stringSrc($$$routingLocation, data).pipe(gulp.dest('./'));
-            }
+            stringSrc($$$routingLocation, data
+                .replace(/(\.when.+\))((\s+)\.segment)/, '$1<<<>>>$2')
+                .replace(/(\.up\(\))(\s+;)/, '$1_______________________________\n        $1$2')
+                .replace('<<<>>>',
+                    templateIt(routingWhenTemplate, $$$controllerF, $$$controller, $$$route))
+                .replace('_______________________________',
+                    templateIt(routingSegmentTemplate, $$$controllerF, $$$controller, $$$route))
+            ).pipe(gulp.dest('./'));
         });
 
         return true
