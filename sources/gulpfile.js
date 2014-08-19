@@ -131,4 +131,11 @@ gulp.task('scripts', function () {
         .pipe(gulp.dest(staticPath + '/assets/js'));
 });
 
+gulp.task('help', function () {
+    console.log('gulp <task> <other task>\t\t\t\t\trun gulp task');
+    console.log('gulp scripts\t\t\t\t\t\t\tcompile angular site javascript files to /assets/js/all.min.js');
+    console.log('gulp create --controller <controller> [--route <route>]\t\tbuild angular controller + template + route');
+    return true
+});
+
 gulp.task('default', ['scripts']);

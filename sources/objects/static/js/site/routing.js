@@ -36,6 +36,12 @@ application.config(function ($routeSegmentProvider, $routeProvider, $locationPro
         .up()
     ;
 
+    /**
+     * ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     * DO NOT REMOVE LAST .up() with ;
+     * FOR THE GULP TASK MANAGER AUTOMATIC
+     * ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     */
 
     $routeProvider.otherwise({redirectTo: '/'});
     $locationProvider.html5Mode(true);
