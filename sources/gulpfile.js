@@ -26,6 +26,13 @@ var paths = {
     ]
 };
 
+var VERSION = '0.0.0';
+
+fs.readFile('VERSION', 'utf8', function (err, version) {
+    if (err) throw err;
+    VERSION = version;
+});
+
 var angularTemplateTemplate =
     '<div ng-controller="___CONTROLLER_F___ as ___CONTROLLER___"></div>';
 

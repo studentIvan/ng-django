@@ -11,6 +11,9 @@ TURN_OFF_SECURITY = False
 TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
+with open("VERSION", "r") as versionFile:
+    VERSION = versionFile.read()
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',

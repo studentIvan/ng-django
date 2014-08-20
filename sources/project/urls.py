@@ -38,6 +38,7 @@ urlpatterns = patterns('',
                            {
                                'template_name': 'index.html',
                                'dictionary': {
-                                   'config': config
+                                   'config': config,
+                                   'VERSION': settings.VERSION
                                }
                            }))
