@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>application title</title>
     <base href="/">
-    {% compress css %}
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/font_awesome/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/animate/animate.css">
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/site/main.css">
-    {% endcompress %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}assets/css/style.min.css">
     <script type="text/javascript">
         /**
          * @const
@@ -93,6 +88,6 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/angular_modules/angular-route-segment.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/angular_ui/ui-bootstrap-tpls-0.11.0.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/angular_ui/ui-utils.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}assets/js/all.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}assets/js/site.min.js"></script>
 </body>
 </html>

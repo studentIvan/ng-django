@@ -2,6 +2,8 @@
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
     concat = require('gulp-concat'),
+    combineCSS = require('combine-css'),
+    minifyCSS = require('gulp-minify-css'),
     args = require('yargs').argv,
     fs = require('fs');
 
@@ -14,6 +16,13 @@ var paths = {
         staticPath + '/js/site/filters.js',
         staticPath + '/js/site/angular_controllers/*.js',
         staticPath + '/js/site/routing.js'
+    ],
+    styles: [
+        staticPath + '/css/bootstrap/bootstrap.min.css',
+        staticPath + '/css/font_awesome/font-awesome.min.css',
+        staticPath + '/css/animate/animate.css',
+        staticPath + '/css/select2/select2.css',
+        staticPath + '/css/site/*.css'
     ]
 };
 
@@ -123,15 +132,24 @@ gulp.task('create', function () {
 
 gulp.task('scripts', function () {
     return gulp.src(paths.scripts)
-        .pipe(concat('all.min.js'))
+        .pipe(concat('site.min.js'))
         .pipe(gulp.dest(staticPath + '/assets/js'));
+});
+
+gulp.task('styles', function() {
+    return gulp.src(paths.styles)
+        .pipe(combineCSS({lengthLimit: 256, prefix: '_m-', selectorLimit: 4080}))
+        .pipe(minifyCSS({keepSpecialComments: 0, keepBreaks: false}))
+        .pipe(concat('style.min.css'))
+        .pipe(gulp.dest(staticPath + '/assets/css'));
 });
 
 gulp.task('help', function () {
     console.log('gulp <task> <other task>\t\t\t\t\trun gulp task');
-    console.log('gulp scripts\t\t\t\t\t\t\tcompile angular site javascript files to /assets/js/all.min.js');
+    console.log('gulp styles\t\t\t\t\t\t\tcompile css files to /assets/css/style.min.css');
+    console.log('gulp scripts\t\t\t\t\t\t\tcompile angular site javascript files to /assets/js/site.min.js');
     console.log('gulp create --controller <controller> [--route <route>]\t\tbuild angular controller + template + route');
     return true
 });
 
-gulp.task('default', ['scripts']);
+gulp.task('default', ['scripts', 'styles']);
