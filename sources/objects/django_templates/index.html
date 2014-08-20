@@ -28,6 +28,12 @@
             'is_superuser': {% if user.is_superuser %}true{% else %}false{% endif %},
             'is_staff': {% if user.is_staff %}true{% else %}false{% endif %}
         };
+
+        /**
+         * Version (for static files)
+         * @type {string}
+         */
+        VERSION = '{{ VERSION }}';
     </script>
 </head>
 <body ng-controller="application.MainCtrl as main">
