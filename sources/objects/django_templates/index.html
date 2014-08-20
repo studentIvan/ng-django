@@ -18,6 +18,21 @@
          * @export
          */
         PUSHER_KEY = '{{ config.PUSHER_KEY }}';
+
+        /**
+         * @const
+         * @type { {username: string, first_name:string, last_name: string,
+         *          full_name: string, is_superuser: boolean, is_staff: boolean} }
+         * @export
+         */
+        CURRENT_USER = {
+            'username': '{{ user.username }}',
+            'first_name': '{% if user.first_name %}{{ user.first_name }}{% endif %}',
+            'last_name': '{% if user.last_name %}{{ user.last_name }}{% endif %}',
+            'full_name': '{% if user.last_name and user.first_name %}{{ user.last_name }} {{ user.first_name }}{% else %}{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}{% endif %}',
+            'is_superuser': {% if user.is_superuser %}true{% else %}false{% endif %},
+            'is_staff': {% if user.is_staff %}true{% else %}false{% endif %}
+        };
     </script>
 </head>
 <body ng-controller="application.MainCtrl as main">
