@@ -1,0 +1,6 @@
+NG-Django
+
+Installation:
+1. run in console: npm cache clean
+2. run in console: npm install
+3. add custom run command to run configuration: ng_django_run

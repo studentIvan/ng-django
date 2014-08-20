@@ -1,0 +1,13 @@
+{
+    "name": "ng-django-project",
+    "description": "Django + Angular full project integration",
+    "repository": "https://github.com/studentIvan/ng-django.git",
+    "dependencies": {
+        "gulp": "*",
+        "gulp-concat": "*",
+        "gulp-util": "*",
+        "yargs": "*",
+        "combine-css": "*",
+        "gulp-minify-css": "*"
+    }
+}
