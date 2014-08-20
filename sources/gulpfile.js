@@ -52,7 +52,7 @@ var routingWhenTemplate = "\n" +
 
 var routingSegmentTemplate = "\n\n" +
 "        .segment('___CONTROLLER___', {\n" +
-"            templateUrl: '/static/angular_templates/___CONTROLLER___.html',\n" +
+"            templateUrl: '/static/angular_templates/___CONTROLLER___.html?v=' + VERSION,\n" +
 "            controller: this.___CONTROLLER_F___\n" +
 "        })\n";
 
