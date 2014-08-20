@@ -21,7 +21,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'objects',
     'south',
-    'compressor',
     'constance',
 )
 
@@ -69,8 +68,6 @@ USE_L10N = True
 USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'objects/static')
-COMPRESS_ENABLED = not DEBUG
-COMPRESS_OUTPUT_DIR = 'assets'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
