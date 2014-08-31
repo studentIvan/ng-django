@@ -11,7 +11,7 @@ TURN_OFF_SECURITY = False
 TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
-with open("VERSION", "r") as versionFile:
+with open(os.path.join(BASE_DIR, "VERSION"), "r") as versionFile:
     VERSION = versionFile.read()
 
 INSTALLED_APPS = (
@@ -39,11 +39,9 @@ if not TURN_OFF_SECURITY:
     MIDDLEWARE_CLASSES += ('django.middleware.csrf.CsrfViewMiddleware',)
 
 ROOT_URLCONF = 'project.urls'
-
 WSGI_APPLICATION = 'project.wsgi.application'
 
 if 'DATABASE_SETTINGS' in os.environ:
-    #DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
     cred = json.loads(os.environ['DATABASE_SETTINGS'])
     DATABASES = {
         'default': {
@@ -56,7 +54,6 @@ if 'DATABASE_SETTINGS' in os.environ:
         }
     }
 else:
-    #DEFAULT_FILE_STORAGE = 'connections.gridfs_files.GridfsStorage'
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',

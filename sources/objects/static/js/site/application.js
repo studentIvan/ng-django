@@ -1,10 +1,22 @@
 /**
+ * List of current application modules
+ * @type {string[]}
+ */
+var ngApplicationModules =
+    ['ngAnimate', 'ngRoute', 'route-segment', 'view-segment', 'ui.bootstrap'];
+
+/**
+ * Moment.js
+ * @type {*}
+ * @export
+ */
+moment.locale('ru');
+
+/**
  * Angular application
- * @see http://google-styleguide.googlecode.com/svn/trunk/angularjs-google-style.html
  * @type {*}
  */
-application = angular.module('application',
-    ['ngAnimate', 'ngRoute', 'route-segment', 'view-segment', 'ui.bootstrap']);
+application = angular.module('application', ngApplicationModules);
 
 /**
  * Use alternative braces for angular application because the Django has a same braces
@@ -93,15 +105,6 @@ application.localStorage = {
 };
 
 /**
- * Moment.js
- * @type {*}
- * @export
- */
-moment;
-application.moment = moment;
-application.moment.lang('ru');
-
-/**
  * Server API Helper
  * @type {{errorCallback: errorCallback, successCallback: successCallback}}
  * @export
@@ -150,15 +153,7 @@ application.server = {
  * @module
  */
 application.factory('$moment', [function () {
-    return application.moment
-}]);
-
-/**
- * Common modal factory
- * @module
- */
-application.factory('$modal2', [function () {
-    return application.modalService
+    return moment
 }]);
 
 /**

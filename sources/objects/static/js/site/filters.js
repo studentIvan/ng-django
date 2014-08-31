@@ -3,20 +3,21 @@
  * @param {string} datetime
  * @returns {string}
  */
-application.filter('getRelativeDateTime', function() {
+application.filter('getRelativeDateTime', ['$moment', function(moment) {
 	return function (datetime) {
-    	return application.moment(datetime).fromNow();
+    	return moment(datetime).fromNow();
     }
-});
+}]);
 
 /**
  * Display datetime in special format
  * D MMMM YYYY, dddd, HH:mm:ss
  * @param {string} datetime
+ * @param {string} format
  * @returns {string}
  */
- application.filter('getAbsoluteDateTime', function() {
-	return function (datetime) {
-    	return application.moment(datetime).format('D MMMM YYYY, dddd, HH:mm:ss');
+application.filter('getAbsoluteDateTime', ['$moment', function(moment) {
+	return function (datetime, format) {
+    	return moment(datetime).format(format || 'D MMMM YYYY, dddd, HH:mm:ss');
     }
-});
+}]);

@@ -151,10 +151,16 @@ gulp.task('styles', function() {
         .pipe(gulp.dest(staticPath + '/assets/css'));
 });
 
+gulp.task('static', ['scripts', 'styles'], function () {
+    gulp.src(prebuiltStatic, { base: staticPath })
+        .pipe(gulp.dest(staticDest));
+});
+
 gulp.task('help', function () {
     console.log('gulp <task> <other task>\t\t\t\t\trun gulp task');
     console.log('gulp styles\t\t\t\t\t\t\tcompile css files to /assets/css/style.min.css');
     console.log('gulp scripts\t\t\t\t\t\t\tcompile angular site javascript files to /assets/js/site.min.js');
+    console.log('gulp static\t\t\t\t\t\t\tcopy static files to deployment directory');
     console.log('gulp create --controller <controller> [--route <route>]\t\tbuild angular controller + template + route');
     return true
 });
