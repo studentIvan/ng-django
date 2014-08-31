@@ -1,5 +1,7 @@
 #coding=utf-8
+from functools import wraps
 from django.shortcuts import _get_queryset
+from django.utils.decorators import available_attrs
 #from mongoengine.base import ValidationError (MongoDB)
 
 
@@ -107,3 +109,20 @@ def get_object_or_404(interesting, *args, **kwargs):
     except queryset.model.DoesNotExist:
         #except ValidationError: (MongoDB)
         raise APIException.not_found()
+
+
+def user_passes_test(test_func):
+    """
+    Decorator for views that checks that the user passes the given test,
+    redirecting to the log-in page if necessary. The test should be a callable
+    that takes the user object and returns True if the user passes.
+    """
+
+    def decorator(view_func):
+        @wraps(view_func, assigned=available_attrs(view_func))
+        def _wrapped_view(*args, **kwargs):
+            if test_func(kwargs['user']):
+                return view_func(*args, **kwargs)
+            return APIException.forbidden()
+        return _wrapped_view
+    return decorator

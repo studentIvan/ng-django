@@ -63,6 +63,11 @@
                    ng-class="{active: $routeSegment.startsWith('another.second_level')}">
                     another/second_level
                 </a>
+                <a href="{[{'administrative' | routeSegmentUrl}]}" class="list-group-item"
+                   ng-class="{active: $routeSegment.startsWith('administrative')}"
+                   ng-if="user.is_superuser">
+                    admin only
+                </a>
                 <a href="{% url 'logout' csrf_token %}" target="_self" class="list-group-item">
                     выход
                 </a>

@@ -5,14 +5,21 @@
  * @ngInject
  * @export
  */
-application.MainCtrl = function($scope, $modal, $routeSegment, $location, loader) {
+application.MainCtrl = function($scope, $rootScope, $modal, $routeSegment, $location, loader) {
     /**
      * Hide pre loader
      */
     jQuery('#loader').hide();
 
+    /**
+     * @type {{ username: string, first_name: string, last_name: string,
+     *          full_name: string, is_staff: boolean, is_superuser: boolean }}
+     */
+    CURRENT_USER;
+
     $scope.$routeSegment = $routeSegment;
     $scope.loader = loader;
+    $rootScope.user = CURRENT_USER;
 
     /**
      * Modal component

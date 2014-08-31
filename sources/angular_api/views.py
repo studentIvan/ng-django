@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-
 from __future__ import print_function, unicode_literals, division
+from angular_api.logic import APIException, get_object_or_404, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from angular_api.logic import *
-#import angular_api.jasmine as jasmine
 import simplejson as json
 import traceback
 import datetime
@@ -21,6 +19,11 @@ def get_obama_years(**kwargs):
 
 def yet_another_api_function(**kwargs):
     return get_object_or_404(User, id=200)  # error 404 test
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def get_administrative(**kwargs):
+    return 'Hello Administrator!'
 
 
 #endregion

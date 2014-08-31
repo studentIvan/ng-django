@@ -13,10 +13,16 @@ application.config(function ($routeSegmentProvider, $routeProvider, $locationPro
         .when('/', 'home')
         .when('/another/', 'another')
         .when('/another/second_level/', 'another.second_level')
+        .when('/administrative/', 'administrative')
 
         .segment('home', {
             templateUrl: '/static/angular_templates/home.html?v=' + VERSION,
             controller: this.MainCtrl
+        })
+
+        .segment('administrative', {
+            templateUrl: '/static/angular_templates/administrative.html?v=' + VERSION,
+            controller: this.Administrative
         })
 
         .segment('another', {
