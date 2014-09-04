@@ -54,6 +54,8 @@ def api_handler_global(request):
                 response['result'] = function_result
         except APIException as e:
             response['error'], status = e.message, e.status
+        except KeyError:
+            response['error'], status = 'Retry With', 449
         except Exception as e:
             if settings.DEBUG:
                 print(traceback.format_exc(), e)
