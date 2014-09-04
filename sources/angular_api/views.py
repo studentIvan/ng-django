@@ -41,19 +41,22 @@ functions = dict(
 @require_POST
 @login_required
 def api_handler_global(request):
-    data = json.loads(request.body)
-    data['user'] = request.user
     response, status = dict(), 200
-
     try:
-        function_result = functions[data['function']](**data)
-        if function_result:
-            response['result'] = function_result
-    except APIException as e:
-        response['error'], status = e.message, e.status
-    except Exception as e:
-        if settings.DEBUG:
-            print(traceback.format_exc(), e)
-        response['error'], status = 'Server Error', 500
+        data = json.loads(request.body)
+        data['user'] = request.user
+    except json.JSONDecodeError:
+        response['error'], status = 'Bad Request', 400
+    else:
+        try:
+            function_result = functions[data['function']](**data)
+            if function_result:
+                response['result'] = function_result
+        except APIException as e:
+            response['error'], status = e.message, e.status
+        except Exception as e:
+            if settings.DEBUG:
+                print(traceback.format_exc(), e)
+            response['error'], status = 'Server Error', 500
 
     return HttpResponse(json.dumps(response), content_type='application/json', status=status)
