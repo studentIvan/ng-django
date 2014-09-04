@@ -2,6 +2,7 @@
 from __future__ import print_function, unicode_literals, division
 from angular_api.logic import APIException, get_object_or_404, user_passes_test
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.conf import settings
@@ -36,35 +37,23 @@ functions = dict(
     )
 )
 
-#functions['jasmine_tests_run_before'] = jasmine.jasmine_tests_run_before
-#functions['jasmine_tests_run_after'] = jasmine.jasmine_tests_run_after
 
-
+@require_POST
 @login_required
 def api_handler_global(request):
-    if request.method != 'POST':
-        raise APIException.forbidden()
-
-    try:
-        data = json.loads(request.body)
-    except:
-        data = dict(request.REQUEST)
-
+    data = json.loads(request.body)
     data['user'] = request.user
-    response = {}
-    status = 200
+    response, status = dict(), 200
 
     try:
         function_result = functions[data['function']](**data)
         if function_result:
             response['result'] = function_result
     except APIException as e:
-        response['error'] = e.message
-        status = e.status
+        response['error'], status = e.message, e.status
     except Exception as e:
         if settings.DEBUG:
             print(traceback.format_exc(), e)
-        response['error'] = 'Server Error'
-        status = 500
+        response['error'], status = 'Server Error', 500
 
     return HttpResponse(json.dumps(response), content_type='application/json', status=status)
